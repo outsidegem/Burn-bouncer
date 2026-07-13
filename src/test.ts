@@ -1,4 +1,4 @@
-import { BurnBouncer } from './src/index.js';
+import { BurnBouncer } from './index.js';
 
 // Initialize the firewall: $1.00 max spend per 60 seconds
 const firewall = new BurnBouncer({
