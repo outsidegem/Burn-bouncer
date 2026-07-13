@@ -30,4 +30,4 @@ jobs:
       run: pnpm build
 
     - name: Run Tests
-      run: npx tsx test.ts
+      run: npx tsx src/test.ts
