@@ -14,6 +14,9 @@ export class BurnBouncer {
   private currentBurn: number = 0;
 
   constructor(config: BouncerConfig) {
+    if (!config || typeof config.maxOpexLimit !== 'number' || typeof config.rollingWindowMs !== 'number') {
+      throw new Error(`[BURN-BOUNCER] Invalid configuration: maxOpexLimit and rollingWindowMs are required numbers.`);
+    }
     this.config = config;
   }
 
@@ -30,6 +33,10 @@ export class BurnBouncer {
   }
 
   public authorizeExecution(projectedCost: number): boolean {
+    if (typeof projectedCost !== 'number' || isNaN(projectedCost) || !isFinite(projectedCost) || projectedCost < 0) {
+      throw new Error(`[BURN-BOUNCER] CIRCUIT BROKEN: Invalid projected cost. Connection Hard-Killed.`);
+    }
+
     this.pruneWindow();
 
     if (this.currentBurn + projectedCost > this.config.maxOpexLimit) {
