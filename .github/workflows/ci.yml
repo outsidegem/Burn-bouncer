@@ -1,33 +1,22 @@
-name: CI Pipeline
+name: Production CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main, master ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main, master ]
 
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '22'
-
-    - name: Install pnpm
-      uses: pnpm/action-setup@v3
-      with:
-        version: 9
-
-    - name: Install dependencies
-      run: pnpm install
-
-    - name: Build TypeScript
-      run: pnpm build
-
-    - name: Run Tests
-      run: npx tsx src/test.ts
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install Dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build TypeScript
+        run: npm run build
+      - name: Run Verification Suite
+        run: npm test

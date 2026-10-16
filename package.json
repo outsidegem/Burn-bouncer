@@ -1,9 +1,17 @@
 {
   "name": "@digital-mineral/burn-bouncer",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Agentic Cost Firewall and rolling OPEX circuit breaker",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "test": "node --import tsx --test src/*.test.ts"
